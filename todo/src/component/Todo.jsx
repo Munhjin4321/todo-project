@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Task } from "./Task";
 import styles from "./todo.module.css";
+import { Filter } from "./Filter";
 
 export const Todo = () => {
   const [tasks, setTasks] = useState([]);
   const [text, setText] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const onChangeText = (event) => {
     const typedText = event.target.value;
@@ -35,6 +37,20 @@ export const Todo = () => {
     setTasks(toggledTask);
   };
 
+
+  const filteredTask = tasks.filter((task) => {
+    if (filter === "active" && task.isCompleted === true) {
+      return task;
+    }
+    if (filter === "completed" && task.isCompleted === true) {
+      return task;
+    }
+    if (filter === "all") {
+      return task;
+    }
+  });
+
+
   return (
     <div className={styles.body}>
       <h1>To-Do list</h1>
@@ -46,11 +62,7 @@ export const Todo = () => {
         ></input>
         <button onClick={addTask}>Add</button>
       </div>
-      <div className={styles.check}>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
-      </div>
+      <Filter setFilter={setFilter} />
       {/* -------- */}
       {tasks.map((task, index) => {
         return (
