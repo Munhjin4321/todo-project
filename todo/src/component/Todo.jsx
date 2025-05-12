@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Task } from "./Task";
 import styles from "./todo.module.css";
-import { Filter } from "./Filter";
+// import { Filter } from "./Filter";
 
 export const Todo = () => {
   const [tasks, setTasks] = useState([]);
   const [text, setText] = useState("");
-  const [filter, setFilter] = useState("all");
+  // const [filter, setFilter] = useState("all");
 
   const onChangeText = (event) => {
     const typedText = event.target.value;
@@ -38,31 +38,36 @@ export const Todo = () => {
   };
 
 
-  const filteredTask = tasks.filter((task) => {
-    if (filter === "active" && task.isCompleted === true) {
-      return task;
-    }
-    if (filter === "completed" && task.isCompleted === true) {
-      return task;
-    }
-    if (filter === "all") {
-      return task;
-    }
-  });
+  // const filteredTask = tasks.filter((task) => {
+  //   if (filter === "active" && task.isCompleted === true) {
+  //     return task;
+  //   }
+  //   if (filter === "completed" && task.isCompleted === true) {
+  //     return task;
+  //   }
+  //   if (filter === "all") {
+  //     return task;
+  //   }
+  // });
 
 
   return (
     <div className={styles.body}>
       <h1>To-Do list</h1>
-      <div>
-        <input
+      <div className={styles.form}>
+        <input className={styles.form}
           onChange={onChangeText}
           value={text}
           placeholder="Add a new task"
         ></input>
-        <button onClick={addTask}>Add</button>
+        <button className={styles.formButton} onClick={addTask}>Add</button>
       </div>
-      <Filter setFilter={setFilter} />
+      <div className={styles.check}>
+        <button>All</button>
+        <button>Active</button>
+        <button>Completed</button>
+      </div>
+      {/* <Filter setFilter={setFilter} /> */}
       {/* -------- */}
       {tasks.map((task, index) => {
         return (
